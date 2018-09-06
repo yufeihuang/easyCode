@@ -1,4 +1,4 @@
-# chore:构建项目:@yFive
+# chore:构建项目:yFive
 
 # 添加banner图
 #   -主要是为了测试commit message效果

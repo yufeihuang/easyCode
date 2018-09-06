@@ -1,11 +1,7 @@
-#chore
+# chore:构建项目:@yFive
 
-#title
-项目构建
+# 添加banner图
+#   -主要是为了测试commit message效果
+#   -没有其他风险
 
-#body
--添加banner图
-
-#footer
--@yFive
--closes#
+# issue#

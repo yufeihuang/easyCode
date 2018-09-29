@@ -15,6 +15,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class EasyCodeCommonApplication {
     public static void main(String[] args) {
-        SpringApplication.run(EasyCodeCommonApplication.class, args);
+        SpringApplication.run(EasyCodeCommonApplication.class,args);
     }
 }

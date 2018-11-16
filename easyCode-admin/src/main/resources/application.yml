@@ -1,0 +1,20 @@
+########################### product base setting
+
+spring:
+  application:
+    name: cuserver
+  boot:
+    admin:
+      url: http://localhost:8090
+##  选择 数据源
+  profiles:
+    active: dev ##test(测试环境)  dev(开发环境) prod(开发环境)
+
+# 打印sql
+logging:
+  level:
+    com.qunyi: debug
+
+
+
+

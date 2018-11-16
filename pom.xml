@@ -70,13 +70,14 @@
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
         <versions-maven-plugin.version>2.3</versions-maven-plugin.version>
+        <git-commit-plugin-version>2.1.15</git-commit-plugin-version>
+        <jacoco-plugin-version>0.8.1</jacoco-plugin-version>
+        <maven-enforcer-plugin-version>1.4.1</maven-enforcer-plugin-version>
+        <swagger.version>2.6.1</swagger.version>
+        <easymock.version>3.6</easymock.version>
         <!-- easyCode-Framework -->
         <mybatis.spring.version>1.3.1</mybatis.spring.version>
-        <swagger.version>2.6.1</swagger.version>
         <mysql-connector-java>5.1.44</mysql-connector-java>
-        <lombok.version>1.16.18</lombok.version>
-        <!-- user-defined -->
-        <druid.version>1.0.20</druid.version>
     </properties>
 
     <!-- 子项目可以引用的默认依赖管理配置 -->
@@ -87,12 +88,6 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.spring.version}</version>
-            </dependency>
-            <!-- druid  -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid</artifactId>
-                <version>${druid.version}</version>
             </dependency>
             <!-- swagger -->
             <dependency>
@@ -111,11 +106,12 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector-java}</version>
             </dependency>
-            <!--lombok-->
+            <!--easymock-->
             <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${easymock.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -169,6 +165,43 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
+            <!-- git-commit-id-plugin -->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>${git-commit-plugin-version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                </configuration>
+            </plugin>
+            <!-- jacoco -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-plugin-version}</version>
+                <executions>
+                    <execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- enforcer 环境检查 -->
             <!--
                 maven-enforcer-plugin能够帮助你避免之类问题，它允许你创建一系列规则强制大家遵守，包括设定Java版本、设定Maven版本、禁止某些依赖、禁止SNAPSHOT依赖。
@@ -179,7 +212,7 @@
                 -->
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.4.1</version>
+                <version>${maven-enforcer-plugin-version}</version>
                 <executions>
                     <execution>
                         <id>default-cli</id>
@@ -249,19 +282,5 @@
             </resource>
         </resources>
     </build>
-
-    <!-- 项目发布配置 -->
-    <!--<distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <name>Nexus Release Repository</name>
-            <url>http://127.0.0.1:8081/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>Nexus Snapshot Repository</name>
-            <url>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>-->
 
 </project>

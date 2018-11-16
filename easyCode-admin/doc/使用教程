@@ -1,0 +1,20 @@
+1：新建项目工程，在pom.xml中配置依赖parent（查看easyCode-admin项目）
+无需配置项目开发的依赖包，如mysql等，因为parent已经依赖了。
+<parent>
+    <groupId>com.yfive</groupId>
+    <artifactId>easyCode-cloud</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath />
+</parent>
+
+2.配置mysql，略过
+
+3.配置mybatis
+mybatis:
+  type-aliases-package: com.escode.storage.po  （这里是数据库对应的po类的包，在这里是storage下的po包）
+  mapper-locations: classpath*:com/escode/storage/mybatis/**/*.xml （这里是持久化实现类对应的包下的实现类，在这里是storage喜爱的mybatis实现对应的xml文件）
+
+4.启动类中配置mapper扫描
+@MapperScan("com.escode.domain.**.repository")   （其实就是dao接口对应的包，这里就是repository）
+
+5.

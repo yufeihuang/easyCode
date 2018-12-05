@@ -3,21 +3,23 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.escode</groupId>
-	<artifactId>easyCode-admin</artifactId>
+	<artifactId>easyCode-eurekaServer</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<name>easyCode-admin</name>
-	<description>easyCode-admin</description>
+	<packaging>pom</packaging>
+	<name>easyCode-eurekaServer</name>
+	<description>easyCode-eurekaServer</description>
 
 	<parent>
 		<groupId>com.yfive</groupId>
 		<artifactId>easyCode-cloud</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath />
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
 	</dependencies>
-
 </project>

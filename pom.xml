@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <!--********************************************************************-->
-    <!--********************************************************************-->
-    <!--******************  {{{  base configuration  }}}  ******************-->
-    <!--********************************************************************-->
-    <!--********************************************************************-->
+    <!--*************************************************************************************************************-->
+    <!--*************************************************************************************************************-->
+    <!--**********************************  {{{  base-configuration  }}}  *******************************************-->
+    <!--*************************************************************************************************************-->
+    <!--*************************************************************************************************************-->
 
-    <!-- 声明项目描述符所遵循的POM模型版本-->
+    <!-- 声明项目描述符所遵循的POM模型版本 -->
     <modelVersion>4.0.0</modelVersion>
     <!-- 项目的全球唯一标识符，通常使用全限定的包名区分该项目和其他项目。并且构建时生成的路径也是由此生成 -->
     <groupId>com.yfive</groupId>
@@ -16,12 +16,12 @@
     <artifactId>easyCode</artifactId>
     <!-- 项目当前版本，格式为:主版本.次版本.增量版本-限定版本号 -->
     <version>1.0.0-SNAPSHOT</version>
-    <!-- 项目产生的构件类型，例如jar、war、ear、pom等。插件可以创建他们自己的构件类型-->
+    <!-- 项目产生的构件类型，例如jar、war、ear、pom等。插件可以创建他们自己的构件类型 -->
     <packaging>pom</packaging>
     <!-- 项目的名称 -->
     <name>easyCode</name>
     <!-- 项目主页的URL -->
-    <url> </url>
+    <url>http://easyCode.com</url>
     <!-- 项目的详细描述 -->
     <description>基于 spring boot 框架的 极简开发平台！！！</description>
 
@@ -34,9 +34,9 @@
             <!-- 项目开发者的全名 -->
             <name>yFive.Huang</name>
             <!-- 项目开发者的email -->
-            <email>834542418@1qq.com</email>
+            <email>834542418@qq.com</email>
             <!-- 项目开发者的主页的URL -->
-            <url></url>
+            <url>http://easyCode.com</url>
             <!-- 项目开发者在项目中扮演的角色，角色元素描述了各种角色 -->
             <roles>
                 <role>Project Manager</role>
@@ -54,18 +54,22 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>1.5.9.RELEASE</version>
         <relativePath/>
     </parent>
 
     <modules>
         <module>easyCode-parent</module>
+        <module>easyCode-cloud</module>
     </modules>
 
     <properties>
-        <!-- global-configuration -->
+        <!--*********************************************************************************************************-->
+        <!--*************************************** global-configuration ********************************************-->
+        <!--*********************************************************************************************************-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <java.version>1.8</java.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
@@ -75,7 +79,9 @@
         <maven-enforcer-plugin-version>1.4.1</maven-enforcer-plugin-version>
         <swagger.version>2.6.1</swagger.version>
         <easymock.version>3.6</easymock.version>
-        <!-- easyCode-Framework -->
+        <!--*********************************************************************************************************-->
+        <!--***************************************** easyCode-Framework ********************************************-->
+        <!--*********************************************************************************************************-->
         <mybatis.spring.version>1.3.1</mybatis.spring.version>
         <mysql-connector-java>5.1.44</mysql-connector-java>
     </properties>
@@ -83,13 +89,13 @@
     <!-- 子项目可以引用的默认依赖管理配置 -->
     <dependencyManagement>
         <dependencies>
-            <!-- mybatis -->
+            <!--*************************************** mybatis-dependency MGR **************************************-->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybatis.spring.version}</version>
             </dependency>
-            <!-- swagger -->
+            <!--*************************************** swagger-dependency MGR **************************************-->
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-swagger2</artifactId>
@@ -100,13 +106,13 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger.version}</version>
             </dependency>
-            <!-- mysql -->
+            <!--**************************************** mysql-dependency MGR ***************************************-->
             <dependency>
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector-java}</version>
             </dependency>
-            <!--easymock-->
+            <!--*************************************** easymock-dependency MGR *************************************-->
             <dependency>
                 <groupId>org.easymock</groupId>
                 <artifactId>easymock</artifactId>
@@ -116,17 +122,38 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+            <version>1.4.2.RELEASE</version>
+        </dependency>
+    </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>myReposiory</id>
+            <name>my test reposiory</name>
+            <url>http://localhost:8081/nexus/content/repositories/myRepository</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <build>
         <!--子项目可以引用的默认插件信息-->
         <pluginManagement>
             <!-- 使用的插件列表  -->
             <plugins>
-                <!-- spring-boot-maven-plugin -->
+                <!--******************************* spring-boot-maven-plugin MGR ************************************-->
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
-                <!-- maven-compiler-plugin -->
+                <!--********************************* maven-compiler-plugin MGR *************************************-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -142,7 +169,7 @@
                         <skip>true</skip>
                     </configuration>
                 </plugin>
-                <!-- {surefire测试插件}: maven-surefire-plugin -->
+                <!--********************** {surefire测试插件}: maven-surefire-plugin MGR ****************************-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -155,17 +182,23 @@
         </pluginManagement>
         <!-- 该项目使用的插件列表-->
         <plugins>
-            <!-- spring-boot-maven-plugin -->
+            <!--********************************** spring-boot-maven-plugin *****************************************-->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!-- maven-compiler-plugin -->
+            <!--********************************** maven-compiler-plugin ********************************************-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
-            <!-- git-commit-id-plugin -->
+            <!--***********************************  maven-archetype-plugin  ****************************************-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-archetype-plugin</artifactId>
+                <version>3.0.1</version>
+            </plugin>
+            <!--********************************** git-commit-id-plugin *********************************************-->
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -181,7 +214,7 @@
                     <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
                 </configuration>
             </plugin>
-            <!-- jacoco -->
+            <!--**************************************** jacoco-plugin **********************************************-->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -202,14 +235,16 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- enforcer 环境检查 -->
+            <!--*********************************** enforcer-plugin 环境检查 ****************************************-->
             <!--
-                maven-enforcer-plugin能够帮助你避免之类问题，它允许你创建一系列规则强制大家遵守，包括设定Java版本、设定Maven版本、禁止某些依赖、禁止SNAPSHOT依赖。
+                <p>
+                maven-enforcer-plugin能够帮助你避免之类问题，它允许你创建一系列规则强制大家遵守，包括设定Java版本、
+                设定Maven版本、禁止某些依赖、禁止SNAPSHOT依赖。
                 只要在一个父POM配置规则，然后让大家继承，当规则遭到破坏的时候，Maven就会报错。
                 除了标准的规则之外，你还可以扩展该插件，编写自己的规则
                 <p>
                 如果某些情况下不需要检查环境，可以在maven命令上加一个 -Denforcer.skip=true 来跳过enforcer插件检查。
-                -->
+            -->
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>${maven-enforcer-plugin-version}</version>
@@ -247,13 +282,12 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- version 项目版本管理 -->
+            <!--*********************************** version-plugin 项目版本管理 **************************************-->
             <!--
                 可以对项目中的Pom文件进行版本管理，能够比较方便的进行依赖包的版本升级，回滚等动作
-                mvn versions:set -DnewVersion=1.0.3-SNAPSHOT 更新当前模块的版本
+                mvn versions:set -DnewVersion=2.0.0-SNAPSHOT 更新当前模块的版本
                 mvn versions:revert 回滚
                 mvn versions:commit 提交
-
                 <p>
                     修改指定模块版本
                     mvn versions:set -DgroupId=${groupId} -DartifactId=${artifact}
@@ -266,11 +300,10 @@
                 <version>${versions-maven-plugin.version}</version>
             </plugin>
         </plugins>
-        <!-- 资源文件配置-->
+        <!--*********************************************************************************************************-->
+        <!--****************************************** 资源文件配置  ************************************************-->
+        <!--*********************************************************************************************************-->
         <resources>
-            <resource>
-                <directory>src/main/webapp</directory>
-            </resource>
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
@@ -282,5 +315,4 @@
             </resource>
         </resources>
     </build>
-
 </project>
